@@ -2,8 +2,17 @@ pipeline {
   agent any
   stages {
     stage('one') {
-      steps {
-        sh 'date |tee date.out'
+      parallel {
+        stage('one') {
+          steps {
+            sh 'date |tee date.out'
+          }
+        }
+        stage('') {
+          steps {
+            build 'SampleTestJob'
+          }
+        }
       }
     }
     stage('two') {

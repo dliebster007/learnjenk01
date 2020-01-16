@@ -1,49 +1,10 @@
 pipeline {
-  agent any
-  stages {
-    stage('one') {
-      parallel {
-        stage('one') {
-          steps {
-            sh 'date |tee date.out'
-          }
+    agent { docker { image 'python:3.5.1' } }
+    stages {
+        stage('build') {
+            steps {
+                sh 'python --version'
+            }
         }
-        stage('') {
-          steps {
-            build 'SampleTestJob'
-          }
-        }
-      }
     }
-    stage('two') {
-      parallel {
-        stage('two') {
-          steps {
-            echo 'second step'
-          }
-        }
-        stage('farf') {
-          steps {
-            sh 'date'
-          }
-        }
-        stage('foof') {
-          steps {
-            sleep 2
-            sh 'date'
-          }
-        }
-      }
-    }
-    stage('nancy') {
-      steps {
-        isUnix()
-      }
-    }
-    stage('BuildMe') {
-      steps {
-        build 'SampleBuildJob'
-      }
-    }
-  }
 }
